@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jpp>
+	
+	<component>
+		<name>DataSource</name>
+		<type>cn.emay.jpp.realize.datasource.DataSourceComponent</type>
+		<info>
+			<url>jdbc:mysql://127.0.0.1:3306/estore?characterEncoding=UTF-8</url>
+			<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+			<username>root</username>
+			<password>root</password>
+			<maxActive>16</maxActive>
+			<maxIdle>1</maxIdle>
+			<minIdle>1</minIdle>
+			<initialSize>1</initialSize>
+			<timeBetweenEvictionRunsMillis>30000</timeBetweenEvictionRunsMillis>
+			<numTestsPerEvictionRun>30</numTestsPerEvictionRun>
+			<logAbandoned>true</logAbandoned>
+		</info>
+	</component>
+	
+	<component>
+		<name>HttpServer</name>
+		<type>cn.emay.jpp.realize.http.SimpleHttpServerComponent</type>
+		<info>
+			<port>8999</port>
+			<maxThreadNumber>2000</maxThreadNumber>
+			<charset>UTF-8</charset>
+			<mappings>
+				<mapping url="/test1" class="cn.emay.test.http.HttpTest" method="test1"/>
+				<mapping url="/test2/?/?/?" class="cn.emay.test.http.HttpTest" method="test2"/>
+			</mappings>
+		</info>
+	</component>
+	
+	<component>
+		<name>Redis</name>
+		<type>cn.emay.jpp.realize.redis.RedisComponent</type>
+		<info>
+			<type>single</type><!-- single,cluster -->
+			<timeout>5000</timeout>
+			<maxIdle>8</maxIdle>
+			<maxTotal>16</maxTotal>
+			<minIdle>4</minIdle>
+			<maxWaitMillis>2000</maxWaitMillis>
+			<datePattern>yyyy-MM-dd HH:mm:ss</datePattern>
+			<!-- single -->
+			<host>127.0.0.1</host>
+			<port>6379</port>
+			<!-- cluster -->
+			<!-- 
+			<hosts>127.0.0.1:8979,127.0.0.1:8971</hosts>
+			<maxRedirections>5</maxRedirections>
+			-->
+		</info>
+	</component>
+	
+	<component>
+		<name>Task</name>
+		<type>cn.emay.jpp.realize.task.TaskExecutorComponent</type>
+		<info>
+			<start-on-boot>true</start-on-boot>
+			<task>
+				<name>普通任务测试</name>
+				<class>cn.emay.test.task.TestPeriodTask</class>
+				<force-period>2s</force-period>
+				<start-on-boot>false</start-on-boot>
+			</task>
+			<task>
+				<name>多线程普通任务测试</name>
+				<class>cn.emay.test.task.TestConcurrentPeriodTask</class>
+				<concurrent min="1" max="8" ds="2s"/>
+			</task>
+			
+			<task>
+				<name>绑定参数的多线程普通任务测试</name>
+				<class>cn.emay.test.task.TestConcurrentBindPeriodTask</class>
+				<concurrent-every  max="8" ds="2s"/>
+			</task>
+			
+			<task>
+				<name>Cron任务测试</name>
+				<class>cn.emay.test.task.TestCronTask</class>
+				<cron expression="*/3 * * * * ?"/>
+			</task>
+		</info>
+	</component>
+	
+	<component>
+		<name>Spring</name>
+		<type>cn.emay.jpp.realize.spring.SpringComponent</type>
+		<info>
+			<config-path>/spring-utils.xml</config-path>
+			<config-path>/spring-bean.xml</config-path>
+		</info>
+	</component>
+
+</jpp>
