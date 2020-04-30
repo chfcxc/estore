@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "crypto": "^1.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jquery-weui": "^1.2.0",
     "mongodb": "^3.0.8",
     "mongodb-server": "^1.0.0",
