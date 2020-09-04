@@ -14,7 +14,7 @@
     "crypto": "^1.0.1",
     "jquery": "^3.3.1",
     "jquery-weui": "^1.2.0",
-    "mongodb": "^3.0.8",
+    "mongodb": "^3.1.13",
     "mongodb-server": "^1.0.0",
     "we-cropper": "^1.2.0",
     "wepy": "^1.7.2",
